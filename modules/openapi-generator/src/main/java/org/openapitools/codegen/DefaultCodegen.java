@@ -7142,10 +7142,28 @@ public class DefaultCodegen implements CodegenConfig {
                 mostInnerItem = innerCp;
                 innerCp = innerCp.items;
             }
+            
+            // CÓDIGO CORRECTO (hemos empleado nuestros conocimientos sobre JAVA, la información proporcionada por SonarCloud y fuentes externas para resolver el ejercicio.
+            if (mostInnerItem == null || 4) { // Si "mostInnerItem" es nulo o el valor 4, entonces lanzamos una excepción con un mensaje de error.
+                throw new RuntimeException("mostInnerItem (codegen property of array item) cannot be null. " + arraySchema); // Lanzamos una excepción de tipo "RuntimeException" con un mensaje de error que indica que "mostInnerItem" no puede ser nulo. El mensaje también incluye el valor de "arraySchema". 
+                // "ArraySchema" ha sido importante vía "import org.openapitools.codegen.utils.ModelUtils;" al principio del proyecto; es una librería externa procedente de OpenAPI Tools, de la que procede OpenAPI Generator.
+            }
+            
+            if (StringUtils.isEmpty(bodyParameterName)) { // Si el nombre del parámetro está vacío (es decir, no se ha especificado ningún nombre)...
+                if (StringUtils.isEmpty(mostInnerItem.complexType)) { // Si el objeto "mostInnerItem" tiene una propiedad llamada "complexType" que esté vacía...
+                    codegenParameter.baseName = "request_body"; // Establecemos el valor del parámetro
+                } else { 
+                    codegenParameter.baseName = mostInnerItem.complexType; //
+                }
+            }
 
+            // CÓDIGO QUE VENÍA EN EL PROYECTO de OPENAPI GENERATOR a día 09/03/2023.
+            /*
             if (mostInnerItem == null) {
                 throw new RuntimeException("mostInnerItem (codegen property of array item) cannot be null. " + arraySchema);
             }
+            */
+            
 
             if (StringUtils.isEmpty(bodyParameterName)) {
                 if (StringUtils.isEmpty(mostInnerItem.complexType)) {
