@@ -7144,27 +7144,29 @@ public class DefaultCodegen implements CodegenConfig {
             }
             
             // CÓDIGO CORRECTO (hemos empleado nuestros conocimientos sobre JAVA, la información proporcionada por SonarCloud y fuentes externas para resolver el ejercicio.
-            if (mostInnerItem == null || 4) { // Si "mostInnerItem" es nulo o el valor 4, entonces lanzamos una excepción con un mensaje de error.
-                throw new RuntimeException("mostInnerItem (codegen property of array item) cannot be null. " + arraySchema); // Lanzamos una excepción de tipo "RuntimeException" con un mensaje de error que indica que "mostInnerItem" no puede ser nulo. El mensaje también incluye el valor de "arraySchema". 
+            if (mostInnerItem == null) { // Si "mostInnerItem" es nulo, entonces lanzamos una excepción con un mensaje de error.
+                throw new RuntimeException("mostInnerItem (codegen property of array item) cannot be null. " + arraySchema); // Lanzamos una excepción del tipo "RunTimeException" con un mensaje de error que indica que "mostInnerItem" no puede ser nulo. El mensaje también incluye el valor de "arraySchema". 
                 // "ArraySchema" ha sido importante vía "import org.openapitools.codegen.utils.ModelUtils;" al principio del proyecto; es una librería externa procedente de OpenAPI Tools, de la que procede OpenAPI Generator.
             }
             
-            if (StringUtils.isEmpty(bodyParameterName)) { // Si el nombre del parámetro está vacío (es decir, no se ha especificado ningún nombre)...
+            if (bodyParameterName != null && !bodyParameterName.isEmpty()) { // Si "bodyParameterName" no es nulo y no está vació... --- ESTA LÍNEA HA SIDO MODIFICADA ---
                 if (StringUtils.isEmpty(mostInnerItem.complexType)) { // Si el objeto "mostInnerItem" tiene una propiedad llamada "complexType" que esté vacía...
-                    codegenParameter.baseName = "request_body"; // Establecemos el valor del parámetro
+                    codegenParameter.baseName = "request_body"; // Establecemos el valor de la propiedad "codegenParameter.baseName" en "resquest_body".
                 } else { 
-                    codegenParameter.baseName = mostInnerItem.complexType; //
+                    codegenParameter.baseName = mostInnerItem.complexType; // En caso contrario, establecemos el valor de la propiedad "codegenParameter.baseName" en el valor de la propiedad "complexType" de "mostInnerItem".
                 }
+            } else {
+                codegenParameter.baseName = "request_body"; // Si "bodyParameterName" es nulo o vacío, establecemos el valor "request_body" de manera predeterminada para "codegenParameter.baseName". --- ESTA LÍNEA HA SIDO MODIFICADA ---
             }
-
-            // CÓDIGO QUE VENÍA EN EL PROYECTO de OPENAPI GENERATOR a día 09/03/2023.
+            
+            
+            // CÓDIGO QUE VENÍA EN EL PROYECTO de OPENAPI GENERATOR a día 09/03/2023:
+            // "Mensaje de bug": "Change this condition so that it does not always evaluate to "false".
             /*
             if (mostInnerItem == null) {
                 throw new RuntimeException("mostInnerItem (codegen property of array item) cannot be null. " + arraySchema);
             }
-            */
             
-
             if (StringUtils.isEmpty(bodyParameterName)) {
                 if (StringUtils.isEmpty(mostInnerItem.complexType)) {
                     codegenParameter.baseName = "request_body";
@@ -7174,6 +7176,8 @@ public class DefaultCodegen implements CodegenConfig {
             } else {
                 codegenParameter.baseName = bodyParameterName;
             }
+            */
+            
             codegenParameter.paramName = toArrayModelParamName(codegenParameter.baseName);
             codegenParameter.items = codegenProperty.items;
             codegenParameter.mostInnerItems = codegenProperty.mostInnerItems;
