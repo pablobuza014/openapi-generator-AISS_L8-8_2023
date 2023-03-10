@@ -7143,25 +7143,25 @@ public class DefaultCodegen implements CodegenConfig {
                 innerCp = innerCp.items;
             }
             
-            // CÓDIGO CORRECTO (hemos empleado nuestros conocimientos sobre JAVA, la información proporcionada por SonarCloud y fuentes externas para resolver el ejercicio.
-            if (mostInnerItem == null) { // Si "mostInnerItem" es nulo, entonces lanzamos una excepción con un mensaje de error.
-                throw new RuntimeException("mostInnerItem (codegen property of array item) cannot be null. " + arraySchema); // Lanzamos una excepción del tipo "RunTimeException" con un mensaje de error que indica que "mostInnerItem" no puede ser nulo. El mensaje también incluye el valor de "arraySchema". 
-                // "ArraySchema" ha sido importante vía "import org.openapitools.codegen.utils.ModelUtils;" al principio del proyecto; es una librería externa procedente de OpenAPI Tools, de la que procede OpenAPI Generator.
+            // CORRECT CODE (we have used our knowledge of JAVA, the information provided by SonarCloud, and external sources within the project to solve the exercise.
+            if (mostInnerItem == null) { // If "mostInnerItem" is null, then we throw an exception with an error message.
+                throw new RuntimeException("mostInnerItem (codegen property of array item) cannot be null. " + arraySchema); // We throw a "RunTimeException" with an error message that indicates that "mostInnerItem" cannot be null. The message also includes the value of "arraySchema". 
+                // "ArraySchema" has been imported via "import org.openapitools.codegen.utils.ModelUtils;" at the beginning of the project; it's an external library from OpenAPI Tools, from which OpenAPI Generator originates.
             }
             
-            if (bodyParameterName != null && !bodyParameterName.isEmpty()) { // Si "bodyParameterName" no es nulo y no está vació... --- ESTA LÍNEA HA SIDO MODIFICADA ---
-                if (StringUtils.isEmpty(mostInnerItem.complexType)) { // Si el objeto "mostInnerItem" tiene una propiedad llamada "complexType" que esté vacía...
-                    codegenParameter.baseName = "request_body"; // Establecemos el valor de la propiedad "codegenParameter.baseName" en "resquest_body".
+            if (bodyParameterName != null && !bodyParameterName.isEmpty()) { // If "bodyParameterName" is not null and not empty... --- THIS LINE HAS BEEN MODIFIED ---
+                if (StringUtils.isEmpty(mostInnerItem.complexType)) { // If the "mostInnerItem" object has an empty "complexType" property...
+                    codegenParameter.baseName = "request_body"; // We set the value of the "codegenParameter.baseName" property to "request_body".
                 } else { 
-                    codegenParameter.baseName = mostInnerItem.complexType; // En caso contrario, establecemos el valor de la propiedad "codegenParameter.baseName" en el valor de la propiedad "complexType" de "mostInnerItem".
+                    codegenParameter.baseName = mostInnerItem.complexType; // Otherwise, we set the value of the "codegenParameter.baseName" property to the value of the "complexType" property of "mostInnerItem".
                 }
             } else {
-                codegenParameter.baseName = "request_body"; // Si "bodyParameterName" es nulo o vacío, establecemos el valor "request_body" de manera predeterminada para "codegenParameter.baseName". --- ESTA LÍNEA HA SIDO MODIFICADA ---
+                codegenParameter.baseName = "request_body"; // If "bodyParameterName" is null or empty, we set the default value "request_body" for "codegenParameter.baseName". --- THIS LINE HAS BEEN MODIFIED ---
             }
             
             
-            // CÓDIGO QUE VENÍA EN EL PROYECTO de OPENAPI GENERATOR a día 09/03/2023:
-            // "Mensaje de bug": "Change this condition so that it does not always evaluate to "false".
+            // CODE THAT CAME WITH THE OPENAPI GENERATOR PROJECT as of 03/09/2023:
+            // "SonarCloud bug message" "Change this condition so that it does not always evaluate to "false".
             /*
             if (mostInnerItem == null) {
                 throw new RuntimeException("mostInnerItem (codegen property of array item) cannot be null. " + arraySchema);
